@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# COMENT
+# Sternin K. Logins for debian's ver. b.0.3.1
+
+#позиционные параметры
+A=$1;
+SORTK=1;
+function help ()
+{
+ echo 'SYNOPSIS' 
+ echo 'logins [-thx]'
+}
+ case "$A" in
+         -h) help
+             exit        
+                 ;; 
+         -x) SORTK=1 
+             SORTN=''
+                 ;;
+         -t) SORTK=3
+             SORTN='-n'
+                 ;;
+          *)SORTK=1
+            SORTN='' 
+                 ;;
+ esac
+getent passwd | sort -k "$SORTK" -t : $SORTN | 
+        while read LINE
+        do
+                login=`echo "$LINE"| cut -f 1 -d : `
+                uid=`echo "$LINE"| cut -f 3 -d : `
+                guid=`echo "$LINE"| cut -f 4 -d : `
+                gecos=`echo "$LINE"| cut -f 5 -d : `
+        echo -e "${login}\t\t\t${uid}\t${guid}\t${gecos}"
+                if [[ $A = '-x' ]]
+                then
+                home=`echo "$LINE"| cut -f 6 -d : `
+                shell=`echo "$LINE"| cut -f 7 -d : `
+        echo -e "\t\t\tHOME DIR =\t${home}"
+        echo -e "\t\t\tSHELL =   \t${shell}"
+                fi
+        done
+
