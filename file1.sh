@@ -1,4 +1,5 @@
 #!/bin/bash
 DT=$(date)
 echo $DT
-echo "hello"
+echo "ms dos here"
+echo "clac calc bac bac"
