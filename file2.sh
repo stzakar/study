@@ -1,2 +1,3 @@
 #!/bin/bash
-echo "Hi its first bug"
+echo $(date)
+echo "Hi its OK"
